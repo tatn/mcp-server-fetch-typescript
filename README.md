@@ -1,5 +1,6 @@
 # mcp-server-fetch-typescript MCP Server
 
+[![smithery badge](https://smithery.ai/badge/@tatn/mcp-server-fetch-typescript)](https://smithery.ai/server/@tatn/mcp-server-fetch-typescript)
 A Model Context Protocol server that provides web content fetching and conversion capabilities. This server implements a comprehensive web content retrieval system with support for various formats and rendering methods, making it ideal for tasks ranging from simple data extraction to sophisticated web scraping.
 
 <a href="https://glama.ai/mcp/servers/iyfpvfkgyx"><img width="380" height="200" src="https://glama.ai/mcp/servers/iyfpvfkgyx/badge" alt="Server Fetch TypeScript MCP server" /></a>
@@ -33,6 +34,14 @@ A Model Context Protocol server that provides web content fetching and conversio
   - Perfect for article and blog post extraction
 
 ## Installation
+
+### Installing via Smithery
+
+To install Fetch TypeScript Server for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@tatn/mcp-server-fetch-typescript):
+
+```bash
+npx -y @smithery/cli install @tatn/mcp-server-fetch-typescript --client claude
+```
 
 ### As a Global Package
 
