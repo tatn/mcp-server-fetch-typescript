@@ -1,6 +1,6 @@
 {
   "name": "mcp-server-fetch-typescript",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A Model Context Protocol server that provides web content fetching and conversion capabilities",
   "main": "./build/index.js",
   "type": "module",

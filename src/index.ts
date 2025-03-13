@@ -17,7 +17,7 @@ import {
 } from "@modelcontextprotocol/sdk/types.js";
 
 import axios from 'axios';
-import { Browser, chromium } from 'playwright';
+import { Browser, chromium, Page } from 'playwright';
 import Turndown from 'turndown';
 import { NodeHtmlMarkdown } from 'node-html-markdown';
 import type { TranslatorConfigObject } from 'node-html-markdown';
@@ -171,24 +171,40 @@ export async function getRawTextString(request_url: string) {
 }
 
 // Helper method to fetch rendered HTML content using a headless browser
-export async function getHtmlString(request_url: string) {
+async function getHtmlString(request_url: string): Promise<string> {
   let browser: Browser | null = null;
+  let page: Page | null = null;
   try {
     browser = await chromium.launch({
-      args: ['--single-process'],
       headless: true,
+      // args: ['--single-process'], 
     });
-    const page = await browser.newPage();
-    await page.goto(request_url, { timeout: TIMEOUT });
+    const context = await browser.newContext();
+    page = await context.newPage();
+
+    await page.goto(request_url, {
+      waitUntil: 'domcontentloaded',
+      timeout: TIMEOUT,
+    });
     const htmlString = await page.content();
     return htmlString;
+  } catch (error) {
+    console.error(`Failed to fetch HTML for ${request_url}:`, error);
+    return ""; 
   } finally {
-    try {
-      if (browser) {
-        await browser.close();
+    if (page) {
+      try {
+        await page.close();
+      } catch (e) {
+        console.error("Error closing page:", e);
       }
-    } catch (error) {
-      console.error('error:', error);
+    }
+    if (browser) {
+      try {
+        await browser.close();
+      } catch (error) {
+        console.error('Error closing browser:', error);
+      }
     }
   }
 }
